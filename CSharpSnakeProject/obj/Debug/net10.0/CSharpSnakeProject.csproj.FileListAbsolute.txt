@@ -1,0 +1,14 @@
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\bin\Debug\net10.0\CSharpSnakeProject.exe
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\bin\Debug\net10.0\CSharpSnakeProject.deps.json
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\bin\Debug\net10.0\CSharpSnakeProject.runtimeconfig.json
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\bin\Debug\net10.0\CSharpSnakeProject.dll
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\bin\Debug\net10.0\CSharpSnakeProject.pdb
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.AssemblyInfoInputs.cache
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.AssemblyInfo.cs
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.csproj.CoreCompileInputs.cache
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.dll
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\refint\CSharpSnakeProject.dll
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.pdb
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\CSharpSnakeProject.genruntimeconfig.cache
+C:\Programming\CSharpSnakeProject\CSharpSnakeProject\obj\Debug\net10.0\ref\CSharpSnakeProject.dll
