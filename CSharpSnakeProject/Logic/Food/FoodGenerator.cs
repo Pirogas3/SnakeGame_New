@@ -12,34 +12,22 @@ namespace CSharpSnakeProject.Logic.Food
 
         public Cell GenerateFood(IFood food, IMap map, List<Cell> snakeBody)
         {
-            Cell newFood;
-            int attempts = 0;
             const int maxAttempts = 100;
-
-            do
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                newFood = new Cell(
-                    _random.Next(3, map.Width - 3),
-                    _random.Next(3, map.Height - 3)
-                );
-                attempts++;
-
-                // Если много попыток не увенчались успехом, расширяем область поиска
-                if (attempts > maxAttempts / 2)
-                {
-                    newFood = new Cell(
-                        _random.Next(1, map.Width - 1),
-                _random.Next(1, map.Height - 1)
-                    );
-                }
-            } while (!food.IsValidPosition(newFood, map, snakeBody) && attempts < maxAttempts);
-
-            if (attempts >= maxAttempts)
-            {
-                throw new InvalidOperationException("Не удалось сгенерировать еду за допустимое число попыток");
+                Cell candidate = new Cell(_random.Next(1, map.Width - 1), _random.Next(1, map.Height - 1));
+                if (food.IsValidPosition(candidate, map, snakeBody))
+                    return candidate;
             }
-
-            return newFood;
+            // Если не повезло, ищем полным перебором
+            for (int x = 1; x < map.Width - 1; x++)
+                for (int y = 1; y < map.Height - 1; y++)
+                {
+                    Cell candidate = new Cell(x, y);
+                    if (food.IsValidPosition(candidate, map, snakeBody))
+                        return candidate;
+                }
+            throw new InvalidOperationException("Нет свободных клеток для еды");
         }
     }
 }

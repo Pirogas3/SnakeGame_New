@@ -11,17 +11,12 @@ namespace CSharpSnakeProject.Logic.Food
         public abstract char Symbol { get; }
         public abstract string Name { get; }
         public abstract int ScoreValue { get; }
+        public virtual float LifespanSeconds => 30f; //стандартное время жизни еды
         public abstract ConsoleColor Color { get; }
 
         public virtual bool IsValidPosition(Cell position, IMap map, List<Cell> snakeBody)
         {
-            if (position.X <= 2 || position.X >= map.Width - 3 ||
-                position.Y <= 2 || position.Y >= map.Height - 3)
-            {
-                return false;
-            }
-            return !snakeBody.Contains(position) &&
-                   !map.GetWalls().Contains(position);
+            return !snakeBody.Contains(position) && !map.GetWalls().Contains(position);
         }
     }
 }

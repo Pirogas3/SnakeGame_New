@@ -15,7 +15,7 @@ namespace CSharpSnakeProject.Logic
         public SnakeGameLogic()
         {
             // Создаём карту (можно менять на разные типы карт, и переопределять символ стен, если необходимо)
-            IMap map = new BasicMap(50, 25);
+            IMap map = new ObstacleMap(40, 28);
 
             // Настраиваем доступную еду
             List<IFood> availableFoods = new List<IFood>

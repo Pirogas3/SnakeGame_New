@@ -10,6 +10,7 @@ namespace CSharpSnakeProject.Maps
         public int Width { get; }
         public int Height { get; }
 
+        private readonly List<Cell> _walls;
         private readonly char _wallSymbol;
 
         public BasicMap(int width, int height, char wallSymbol = '█')
@@ -17,9 +18,10 @@ namespace CSharpSnakeProject.Maps
             Width = width;
             Height = height;
             _wallSymbol = wallSymbol;
+            _walls = GenerateWalls();
         }
 
-        public IEnumerable<Cell> GetWalls()
+        private List<Cell> GenerateWalls()
         {
             var walls = new List<Cell>();
 
@@ -30,7 +32,7 @@ namespace CSharpSnakeProject.Maps
                 walls.Add(new Cell(x, Height - 1));
             }
 
-            // Левая и правая границы
+            // Левая и правая границы (без углов, чтобы не дублировать)
             for (int y = 1; y < Height - 1; y++)
             {
                 walls.Add(new Cell(0, y));
@@ -40,6 +42,7 @@ namespace CSharpSnakeProject.Maps
             return walls;
         }
 
+        public IEnumerable<Cell> GetWalls() => _walls;
         public char GetWallSymbol(Cell position) => _wallSymbol;
     }
 }

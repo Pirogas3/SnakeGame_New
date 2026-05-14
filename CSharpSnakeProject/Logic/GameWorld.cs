@@ -16,6 +16,7 @@ namespace CSharpSnakeProject.Logic
         private readonly IMap _map;
         private readonly List<IFood> _availableFoods;
         private readonly IFoodGenerator _foodGenerator;
+        private readonly Random _rand = new Random();
         private readonly GamePalette _palette;
 
         private Snake _snake;
@@ -24,7 +25,8 @@ namespace CSharpSnakeProject.Logic
         private int _score;
         private bool _isGameOver;
         private float _timeToMove;
-        private const float _speedSnake = 8f; //можно задать скорость движения змейки, чем больше число, тем быстрее.
+        private float _foodTimeLeft;
+        private const float _speedSnake = 16f; //можно задать скорость движения змейки, чем больше число, тем быстрее.
 
         // Свойства для доступа извне
         public IMap Map => _map;
@@ -75,6 +77,13 @@ namespace CSharpSnakeProject.Logic
         {
             if (_isGameOver) return;
 
+            //время жизни еды
+            _foodTimeLeft -= deltaTime;
+            if (_foodTimeLeft <= 0f)
+            {
+                GenerateFood();
+            }
+
             _timeToMove -= deltaTime;
             if (_timeToMove > 0f) return;
             _timeToMove = 1f / _speedSnake; //скорость движения змейки
@@ -117,9 +126,9 @@ namespace CSharpSnakeProject.Logic
             if (_availableFoods.Count == 0)
                 throw new InvalidOperationException("Нет доступной еды");
 
-            Random rand = new Random();
-            _currentFood = _availableFoods[rand.Next(_availableFoods.Count)];
+            _currentFood = _availableFoods[_rand.Next(_availableFoods.Count)];
             _foodPosition = _foodGenerator.GenerateFood(_currentFood, _map, _snake.Body);
+            _foodTimeLeft = _currentFood.LifespanSeconds;
         }
 
         private void GameOver()

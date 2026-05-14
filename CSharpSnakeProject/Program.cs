@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 
 internal class Program
 {
-    //const float targetFrameTime = 1f / 60f;
     static void Main()
     {
         try
@@ -27,7 +26,7 @@ internal class Program
 
         var renderer = new ConsoleRenderer(palette.ToColorArray());
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-        float deltaTime = targetFrameTime; // начальное значение
+        float deltaTime = targetFrameTime;
 
         while (true)
         {
