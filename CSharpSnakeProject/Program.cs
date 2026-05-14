@@ -1,5 +1,6 @@
 ﻿using CSharpSnakeProject.Input;
 using CSharpSnakeProject.Logic;
+using CSharpSnakeProject.Logic.GameState;
 using CSharpSnakeProject.Renderer;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -17,7 +18,7 @@ internal class Program
         }
         catch { /* игнорируем, если не поддерживается */ }
 
-        const float targetFrameTime = 1f / 60f; // 60 fps
+        const float targetFrameTime = 1f / 60f; // fps
 
         var gameLogic = new SnakeGameLogic();
         var palette = gameLogic.CreatePalette();
@@ -38,7 +39,14 @@ internal class Program
             // Ограничиваем максимальный дельта-тайм (если игра зависла, не делаем больших скачков)
             if (deltaTime > 0.1f) deltaTime = 0.1f;
 
-            input.Update();
+            // Обновляем ввод только если текущее состояние требует этого
+            if (gameLogic.currentState is BaseGameState state && state.HandlesInput)
+                input.Update();
+            else
+            {
+                
+            }
+
             gameLogic.DrawNewState(deltaTime, renderer);
             renderer.Render();
             renderer.Clear();

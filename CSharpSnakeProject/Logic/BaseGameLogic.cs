@@ -1,4 +1,5 @@
 ﻿using CSharpSnakeProject.Input;
+using CSharpSnakeProject.Logic.GameState;
 using CSharpSnakeProject.Renderer;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Text;
 
 namespace CSharpSnakeProject.Logic
 {
-    public abstract class BaseGameLogic : IArrowListener
+    public abstract class BaseGameLogic : IGameInputListener
     {
-        protected BaseGameState? currentState { get; private set; }
+        public BaseGameState? currentState { get; private set; }
         protected float time { get; private set; }
         protected int screenWidth { get; private set; }
         protected int screenHeight { get; private set; }
@@ -17,6 +18,8 @@ namespace CSharpSnakeProject.Logic
         public abstract void OnArrowDown();
         public abstract void OnArrowLeft();
         public abstract void OnArrowRight();
+        public abstract void OnPause();
+        public abstract void OnExit();
 
         public abstract void Update(float deltaTime);
 
@@ -34,7 +37,7 @@ namespace CSharpSnakeProject.Logic
             Update(deltaTime);
         }
 
-        protected void ChangeState(BaseGameState? state)
+        public void ChangeState(BaseGameState? state)
         {
             currentState?.Reset();
             currentState = state;

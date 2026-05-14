@@ -1,5 +1,7 @@
 ﻿using CSharpSnakeProject.Enums;
+using CSharpSnakeProject.Input;
 using CSharpSnakeProject.Logic.Food;
+using CSharpSnakeProject.Logic.GameState;
 using CSharpSnakeProject.Maps;
 using CSharpSnakeProject.Renderer;
 using System;
@@ -10,66 +12,57 @@ namespace CSharpSnakeProject.Logic
 {
     public class SnakeGameLogic : BaseGameLogic
     {
-        private SnakeGameplayState _gameplayState;
-
         public SnakeGameLogic()
         {
-            // Создаём карту (можно менять на разные типы карт, и переопределять символ стен, если необходимо)
-            IMap map = new ObstacleMap(40, 28);
-
-            // Настраиваем доступную еду
-            List<IFood> availableFoods = new List<IFood>
-            {
-            new Apple(),
-            new Carrot()
-            };
-
-            GamePalette palette = CreatePalette(); //Палитра цветов для разных элементов игры
-
-            _gameplayState = new SnakeGameplayState(
-                map, //обязательно задаем карту
-                availableFoods, //обязательно задаем список еды
-                palette, //обязательно задаем палитру цветов
-                null //можно задать генератор еды
-            );
+            ChangeState(new MenuState(this));
         }
 
-        private void GotoGameplay()
+        public void StartGame(IMap map, List<IFood> availableFoods, GamePalette palette, IFoodGenerator foodGenerator, float speedSnake)
         {
-            ChangeState(_gameplayState);
-            _gameplayState.Reset();
+            var gameplayState = new SnakeGameplayState(map, availableFoods, palette, foodGenerator, speedSnake, this);
+            ChangeState(gameplayState);
+            gameplayState.Reset();
         }
 
         public override void OnArrowUp()
         {
-            if (currentState != _gameplayState) return;
-            _gameplayState.SetDirection(SnakeDirection.Up);
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.SetDirection(SnakeDirection.Up);
         }
 
         public override void OnArrowDown()
         {
-            if (currentState != _gameplayState) return;
-            _gameplayState.SetDirection(SnakeDirection.Down);
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.SetDirection(SnakeDirection.Down);
         }
 
         public override void OnArrowLeft()
         {
-            if (currentState != _gameplayState) return;
-            _gameplayState.SetDirection(SnakeDirection.Left);
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.SetDirection(SnakeDirection.Left);
         }
 
         public override void OnArrowRight()
         {
-            if (currentState != _gameplayState) return;
-            _gameplayState.SetDirection(SnakeDirection.Right);
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.SetDirection(SnakeDirection.Right);
+        }
+
+        public override void OnPause()
+        {
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.TogglePause();
+        }
+
+        public override void OnExit()
+        {
+            if (currentState is SnakeGameplayState gameplay)
+                gameplay.ExitToMenu();
         }
 
         public override void Update(float deltaTime)
         {
-            if (currentState != _gameplayState)
-            {
-                GotoGameplay();
-            }
+            
         }
 
         public override GamePalette CreatePalette()
